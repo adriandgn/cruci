@@ -1,0 +1,42 @@
+<!doctype html>
+<html ng-app="miApp">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+    <script src="js/app.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+  </head>
+
+  <body ng-controller="miController">
+
+    <form name="crucigrama" ng-submit="chequeaPalabras()" novalidate>
+    
+    <div>
+      <div style="width:300px; margin:auto; float:left; border: 2px solid grey;">
+        <div ng-repeat="lin in lineas" class="linea{{lin}}" >
+          <div 
+            ng-repeat="cel in celdas" 
+            ng-class="{bloqueada: bloqueada.l{{lin}}c{{cel}} }" 
+            class="corte celda{{cel}}" id="l{{lin}}c{{cel}}">
+            {{(cel + (cantH * lin))+1 }} 
+            <!-- bloqueada.l{{lin}}c{{cel}} -->
+            <div ng-if="'bloqueada.l{{lin}}c{{cel}}' !== true">
+              <input class="campos" type="text" name="l{{lin}}c{{cel}}" maxlength="1"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="clear: both"></div>
+    <br>
+    <hr>
+    <button type="submit">Chequear</button>
+    </form>
+
+    <ul class="ul"><li style="float:left; font-size:12px; padding:5px;"  ng-repeat="pal in palabras">{{pal.palabra}}</li></ul>
+    <div style="clear: both"></div>
+    <pre>{{datos}}</pre>
+    <pre>{{bloqueada| json}}</pre>
+    </div>
+  </body>
+</html>
